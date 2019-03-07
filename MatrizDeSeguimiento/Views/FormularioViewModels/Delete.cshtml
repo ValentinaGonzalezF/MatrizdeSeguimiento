@@ -1,0 +1,91 @@
+﻿@model Proyecto.Models.FormularioViewModel
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar Columna</h2>
+
+<h3>¿Estás seguro de borrar esta columna?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Oportunidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oportunidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Financista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Financista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaEntregaPropuesta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEntregaPropuesta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAdjudicacionPropuesta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaAdjudicacionPropuesta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingreso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ingreso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GastoHH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GastoHH)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Delete" class="btn btn-danger" />
+
+
+        </div>
+    }
+</div>
+

@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FCHmatrizdeseguimientoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="area">
+    <Key>
+      <PropertyRef Name="id_area" />
+    </Key>
+    <Property Name="id_area" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_area" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_area" FromRole="area" ToRole="usuario" />
+    <NavigationProperty Name="linea" Relationship="Self.linea_area_fk" FromRole="area" ToRole="linea" />
+  </EntityType>
+  <EntityType Name="estado_oportunidad">
+    <Key>
+      <PropertyRef Name="id_estado" />
+    </Key>
+    <Property Name="nombre_estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="relacion_op_finan" Relationship="Self.FK_relacion_op_finan_estado_oportunidad" FromRole="estado_oportunidad" ToRole="relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="financista">
+    <Key>
+      <PropertyRef Name="id_financista" />
+    </Key>
+    <Property Name="id_financista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_tipo" Type="Int32" Nullable="false" />
+    <Property Name="nombre_financista" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="relacion_op_finan" Relationship="Self.FK_relacion_op_finan_financista" FromRole="financista" ToRole="relacion_op_finan" />
+    <NavigationProperty Name="tipo_financista" Relationship="Self.FK_tipo_financista" FromRole="financista" ToRole="tipo_financista" />
+  </EntityType>
+  <EntityType Name="hist_area">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_area" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="id_area" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_area" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="hist_linea" Relationship="Self.FK_hist_linea_hist_area" FromRole="hist_area" ToRole="hist_linea" />
+  </EntityType>
+  <EntityType Name="hist_estado_oportunidad">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_estado" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="nombre_estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="hist_relacion_op_finan" Relationship="Self.FK_hist_relacion_op_finan_hist_estado_oportunidad" FromRole="hist_estado_oportunidad" ToRole="hist_relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="hist_financista">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_financista" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="id_financista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_tipo" Type="Int32" Nullable="false" />
+    <Property Name="nombre_financista" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="hist_tipo_financista" Relationship="Self.FK_hist_financista_hist_tipo_financista" FromRole="hist_financista" ToRole="hist_tipo_financista" />
+    <NavigationProperty Name="hist_relacion_op_finan" Relationship="Self.FK_hist_relacion_op_finan_hist_financista" FromRole="hist_financista" ToRole="hist_relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="hist_ingresos_gastos">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="año" />
+      <PropertyRef Name="Id_oportunidad" />
+      <PropertyRef Name="Id_financista" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="año" Type="Int32" Nullable="false" />
+    <Property Name="monto_ingreso" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_gasto_hh" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_gasto" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="Id_oportunidad" Type="Int32" Nullable="false" />
+    <Property Name="Id_financista" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="hist_relacion_op_finan" Relationship="Self.FK_hist_ingresos_gastos_hist_relacion_op_finan" FromRole="hist_ingresos_gastos" ToRole="hist_relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="hist_iniciativa">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_iniciativa" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="id_iniciativa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_iniciativa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="linea_id_linea" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="hist_linea" Relationship="Self.FK_hist_iniciativa_hist_linea" FromRole="hist_iniciativa" ToRole="hist_linea" />
+    <NavigationProperty Name="hist_oportunidad" Relationship="Self.FK_hist_oportunidad_hist_iniciativa" FromRole="hist_iniciativa" ToRole="hist_oportunidad" />
+  </EntityType>
+  <EntityType Name="hist_linea">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_linea" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="id_linea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_linea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_area" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="hist_area" Relationship="Self.FK_hist_linea_hist_area" FromRole="hist_linea" ToRole="hist_area" />
+    <NavigationProperty Name="hist_iniciativa" Relationship="Self.FK_hist_iniciativa_hist_linea" FromRole="hist_linea" ToRole="hist_iniciativa" />
+    <NavigationProperty Name="hist_ppto_ingresos_gastos" Relationship="Self.FK_hist_ppto_ingresos_gastos_hist_linea" FromRole="hist_linea" ToRole="hist_ppto_ingresos_gastos" />
+  </EntityType>
+  <EntityType Name="hist_oportunidad">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_oportunidad" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="id_oportunidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_oportunidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_iniciativa" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="hist_iniciativa" Relationship="Self.FK_hist_oportunidad_hist_iniciativa" FromRole="hist_oportunidad" ToRole="hist_iniciativa" />
+    <NavigationProperty Name="hist_relacion_op_finan" Relationship="Self.FK_hist_relacion_op_finan_hist_oportunidad" FromRole="hist_oportunidad" ToRole="hist_relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="hist_ppto_ingresos_gastos">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_linea" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="id_linea" Type="Int32" Nullable="false" />
+    <Property Name="año" Type="Int32" Nullable="false" />
+    <Property Name="monto_ppto_hh" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_ppto_gasto" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_ppto_ingreso" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <NavigationProperty Name="hist_linea" Relationship="Self.FK_hist_ppto_ingresos_gastos_hist_linea" FromRole="hist_ppto_ingresos_gastos" ToRole="hist_linea" />
+  </EntityType>
+  <EntityType Name="hist_relacion_op_finan">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="oportunidad_id_oportunidad" />
+      <PropertyRef Name="financista_id_financista" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="oportunidad_id_oportunidad" Type="Int32" Nullable="false" />
+    <Property Name="financista_id_financista" Type="Int32" Nullable="false" />
+    <Property Name="id_estado" Type="Int32" />
+    <Property Name="fecha_entrega_propuesta" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_estimada_adjudicada" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="hist_estado_oportunidad" Relationship="Self.FK_hist_relacion_op_finan_hist_estado_oportunidad" FromRole="hist_relacion_op_finan" ToRole="hist_estado_oportunidad" />
+    <NavigationProperty Name="hist_financista" Relationship="Self.FK_hist_relacion_op_finan_hist_financista" FromRole="hist_relacion_op_finan" ToRole="hist_financista" />
+    <NavigationProperty Name="hist_ingresos_gastos" Relationship="Self.FK_hist_ingresos_gastos_hist_relacion_op_finan" FromRole="hist_relacion_op_finan" ToRole="hist_ingresos_gastos" />
+    <NavigationProperty Name="hist_oportunidad" Relationship="Self.FK_hist_relacion_op_finan_hist_oportunidad" FromRole="hist_relacion_op_finan" ToRole="hist_oportunidad" />
+  </EntityType>
+  <EntityType Name="hist_tipo_financista">
+    <Key>
+      <PropertyRef Name="añomescierre" />
+      <PropertyRef Name="id_tipofinancista" />
+    </Key>
+    <Property Name="añomescierre" Type="Int32" Nullable="false" />
+    <Property Name="nombre_tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_tipofinancista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="hist_financista" Relationship="Self.FK_hist_financista_hist_tipo_financista" FromRole="hist_tipo_financista" ToRole="hist_financista" />
+  </EntityType>
+  <EntityType Name="ingresos_gastos">
+    <Key>
+      <PropertyRef Name="año" />
+      <PropertyRef Name="Id_oportunidad" />
+      <PropertyRef Name="Id_financista" />
+    </Key>
+    <Property Name="año" Type="Int32" Nullable="false" />
+    <Property Name="monto_ingreso" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_gasto_hh" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_gasto" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="Id_oportunidad" Type="Int32" Nullable="false" />
+    <Property Name="Id_financista" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="relacion_op_finan" Relationship="Self.FK_ingresos_gastos_relacion_op_finan" FromRole="ingresos_gastos" ToRole="relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="iniciativa">
+    <Key>
+      <PropertyRef Name="id_iniciativa" />
+    </Key>
+    <Property Name="id_iniciativa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_iniciativa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="linea_id_linea" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="oportunidad" Relationship="Self.FK_oprt_inic" FromRole="iniciativa" ToRole="oportunidad" />
+    <NavigationProperty Name="linea" Relationship="Self.iniciativa_linea_fk" FromRole="iniciativa" ToRole="linea" />
+  </EntityType>
+  <EntityType Name="linea">
+    <Key>
+      <PropertyRef Name="id_linea" />
+    </Key>
+    <Property Name="id_linea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_linea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_area" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="area" Relationship="Self.linea_area_fk" FromRole="linea" ToRole="area" />
+    <NavigationProperty Name="iniciativa" Relationship="Self.iniciativa_linea_fk" FromRole="linea" ToRole="iniciativa" />
+    <NavigationProperty Name="ppto_ingresos_gastos" Relationship="Self.FK_ppto_ingresos_gastos_linea" FromRole="linea" ToRole="ppto_ingresos_gastos" />
+  </EntityType>
+  <EntityType Name="oportunidad">
+    <Key>
+      <PropertyRef Name="id_oportunidad" />
+    </Key>
+    <Property Name="id_oportunidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_oportunidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_iniciativa" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="iniciativa" Relationship="Self.FK_oprt_inic" FromRole="oportunidad" ToRole="iniciativa" />
+    <NavigationProperty Name="relacion_op_finan" Relationship="Self.FK_relacion_op_finan_oportunidad" FromRole="oportunidad" ToRole="relacion_op_finan" />
+  </EntityType>
+  <EntityType Name="perfil">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+    </Key>
+    <Property Name="id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_perfil" FromRole="perfil" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="ppto_ingresos_gastos">
+    <Key>
+      <PropertyRef Name="id_linea" />
+    </Key>
+    <Property Name="id_linea" Type="Int32" Nullable="false" />
+    <Property Name="año" Type="Int32" Nullable="false" />
+    <Property Name="monto_ppto_hh" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_ppto_gasto" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <Property Name="monto_ppto_ingreso" Type="Decimal" Precision="28" Scale="1" Nullable="false" />
+    <NavigationProperty Name="linea" Relationship="Self.FK_ppto_ingresos_gastos_linea" FromRole="ppto_ingresos_gastos" ToRole="linea" />
+  </EntityType>
+  <EntityType Name="relacion_op_finan">
+    <Key>
+      <PropertyRef Name="oportunidad_id_oportunidad" />
+      <PropertyRef Name="financista_id_financista" />
+    </Key>
+    <Property Name="oportunidad_id_oportunidad" Type="Int32" Nullable="false" />
+    <Property Name="financista_id_financista" Type="Int32" Nullable="false" />
+    <Property Name="id_estado" Type="Int32" />
+    <Property Name="fecha_entrega_propuesta" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_estimada_adjudicada" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="estado_oportunidad" Relationship="Self.FK_relacion_op_finan_estado_oportunidad" FromRole="relacion_op_finan" ToRole="estado_oportunidad" />
+    <NavigationProperty Name="financista" Relationship="Self.FK_relacion_op_finan_financista" FromRole="relacion_op_finan" ToRole="financista" />
+    <NavigationProperty Name="ingresos_gastos" Relationship="Self.FK_ingresos_gastos_relacion_op_finan" FromRole="relacion_op_finan" ToRole="ingresos_gastos" />
+    <NavigationProperty Name="oportunidad" Relationship="Self.FK_relacion_op_finan_oportunidad" FromRole="relacion_op_finan" ToRole="oportunidad" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tipo_financista">
+    <Key>
+      <PropertyRef Name="id_tipofinancista" />
+    </Key>
+    <Property Name="nombre_tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_tipofinancista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="financista" Relationship="Self.FK_tipo_financista" FromRole="tipo_financista" ToRole="financista" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id_usuario" />
+    </Key>
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="area_id_area" Type="Int32" />
+    <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_perfil" Type="Int32" Nullable="false" />
+    <Property Name="nombre_usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="area" Relationship="Self.FK_usuario_area" FromRole="usuario" ToRole="area" />
+    <NavigationProperty Name="perfil" Relationship="Self.FK_usuario_perfil" FromRole="usuario" ToRole="perfil" />
+  </EntityType>
+  <Association Name="FK_usuario_area">
+    <End Role="area" Type="Self.area" Multiplicity="0..1" />
+    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="area">
+        <PropertyRef Name="id_area" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="area_id_area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="linea_area_fk">
+    <End Role="area" Type="Self.area" Multiplicity="1" />
+    <End Role="linea" Type="Self.linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="area">
+        <PropertyRef Name="id_area" />
+      </Principal>
+      <Dependent Role="linea">
+        <PropertyRef Name="id_area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_relacion_op_finan_estado_oportunidad">
+    <End Role="estado_oportunidad" Type="Self.estado_oportunidad" Multiplicity="0..1" />
+    <End Role="relacion_op_finan" Type="Self.relacion_op_finan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estado_oportunidad">
+        <PropertyRef Name="id_estado" />
+      </Principal>
+      <Dependent Role="relacion_op_finan">
+        <PropertyRef Name="id_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_relacion_op_finan_financista">
+    <End Role="financista" Type="Self.financista" Multiplicity="1" />
+    <End Role="relacion_op_finan" Type="Self.relacion_op_finan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="financista">
+        <PropertyRef Name="id_financista" />
+      </Principal>
+      <Dependent Role="relacion_op_finan">
+        <PropertyRef Name="financista_id_financista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tipo_financista">
+    <End Role="tipo_financista" Type="Self.tipo_financista" Multiplicity="1" />
+    <End Role="financista" Type="Self.financista" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_financista">
+        <PropertyRef Name="id_tipofinancista" />
+      </Principal>
+      <Dependent Role="financista">
+        <PropertyRef Name="Id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_linea_hist_area">
+    <End Role="hist_area" Type="Self.hist_area" Multiplicity="1" />
+    <End Role="hist_linea" Type="Self.hist_linea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_area">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_area" />
+      </Principal>
+      <Dependent Role="hist_linea">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_relacion_op_finan_hist_estado_oportunidad">
+    <End Role="hist_estado_oportunidad" Type="Self.hist_estado_oportunidad" Multiplicity="0..1" />
+    <End Role="hist_relacion_op_finan" Type="Self.hist_relacion_op_finan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_estado_oportunidad">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_estado" />
+      </Principal>
+      <Dependent Role="hist_relacion_op_finan">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_financista_hist_tipo_financista">
+    <End Role="hist_tipo_financista" Type="Self.hist_tipo_financista" Multiplicity="1" />
+    <End Role="hist_financista" Type="Self.hist_financista" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_tipo_financista">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_tipofinancista" />
+      </Principal>
+      <Dependent Role="hist_financista">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="Id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_relacion_op_finan_hist_financista">
+    <End Role="hist_financista" Type="Self.hist_financista" Multiplicity="1" />
+    <End Role="hist_relacion_op_finan" Type="Self.hist_relacion_op_finan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_financista">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_financista" />
+      </Principal>
+      <Dependent Role="hist_relacion_op_finan">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="financista_id_financista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_ingresos_gastos_hist_relacion_op_finan">
+    <End Role="hist_relacion_op_finan" Type="Self.hist_relacion_op_finan" Multiplicity="1" />
+    <End Role="hist_ingresos_gastos" Type="Self.hist_ingresos_gastos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_relacion_op_finan">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="oportunidad_id_oportunidad" />
+        <PropertyRef Name="financista_id_financista" />
+      </Principal>
+      <Dependent Role="hist_ingresos_gastos">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="Id_oportunidad" />
+        <PropertyRef Name="Id_financista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_iniciativa_hist_linea">
+    <End Role="hist_linea" Type="Self.hist_linea" Multiplicity="1" />
+    <End Role="hist_iniciativa" Type="Self.hist_iniciativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_linea">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_linea" />
+      </Principal>
+      <Dependent Role="hist_iniciativa">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="linea_id_linea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_oportunidad_hist_iniciativa">
+    <End Role="hist_iniciativa" Type="Self.hist_iniciativa" Multiplicity="1" />
+    <End Role="hist_oportunidad" Type="Self.hist_oportunidad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_iniciativa">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_iniciativa" />
+      </Principal>
+      <Dependent Role="hist_oportunidad">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_iniciativa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_ppto_ingresos_gastos_hist_linea">
+    <End Role="hist_linea" Type="Self.hist_linea" Multiplicity="1" />
+    <End Role="hist_ppto_ingresos_gastos" Type="Self.hist_ppto_ingresos_gastos" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="hist_linea">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_linea" />
+      </Principal>
+      <Dependent Role="hist_ppto_ingresos_gastos">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_linea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hist_relacion_op_finan_hist_oportunidad">
+    <End Role="hist_oportunidad" Type="Self.hist_oportunidad" Multiplicity="1" />
+    <End Role="hist_relacion_op_finan" Type="Self.hist_relacion_op_finan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hist_oportunidad">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="id_oportunidad" />
+      </Principal>
+      <Dependent Role="hist_relacion_op_finan">
+        <PropertyRef Name="añomescierre" />
+        <PropertyRef Name="oportunidad_id_oportunidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ingresos_gastos_relacion_op_finan">
+    <End Role="relacion_op_finan" Type="Self.relacion_op_finan" Multiplicity="1" />
+    <End Role="ingresos_gastos" Type="Self.ingresos_gastos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="relacion_op_finan">
+        <PropertyRef Name="oportunidad_id_oportunidad" />
+        <PropertyRef Name="financista_id_financista" />
+      </Principal>
+      <Dependent Role="ingresos_gastos">
+        <PropertyRef Name="Id_oportunidad" />
+        <PropertyRef Name="Id_financista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_oprt_inic">
+    <End Role="iniciativa" Type="Self.iniciativa" Multiplicity="1" />
+    <End Role="oportunidad" Type="Self.oportunidad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="iniciativa">
+        <PropertyRef Name="id_iniciativa" />
+      </Principal>
+      <Dependent Role="oportunidad">
+        <PropertyRef Name="id_iniciativa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="iniciativa_linea_fk">
+    <End Role="linea" Type="Self.linea" Multiplicity="1" />
+    <End Role="iniciativa" Type="Self.iniciativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="linea">
+        <PropertyRef Name="id_linea" />
+      </Principal>
+      <Dependent Role="iniciativa">
+        <PropertyRef Name="linea_id_linea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ppto_ingresos_gastos_linea">
+    <End Role="linea" Type="Self.linea" Multiplicity="1" />
+    <End Role="ppto_ingresos_gastos" Type="Self.ppto_ingresos_gastos" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="linea">
+        <PropertyRef Name="id_linea" />
+      </Principal>
+      <Dependent Role="ppto_ingresos_gastos">
+        <PropertyRef Name="id_linea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_relacion_op_finan_oportunidad">
+    <End Role="oportunidad" Type="Self.oportunidad" Multiplicity="1" />
+    <End Role="relacion_op_finan" Type="Self.relacion_op_finan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="oportunidad">
+        <PropertyRef Name="id_oportunidad" />
+      </Principal>
+      <Dependent Role="relacion_op_finan">
+        <PropertyRef Name="oportunidad_id_oportunidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_usuario_perfil">
+    <End Role="perfil" Type="Self.perfil" Multiplicity="1" />
+    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="perfil">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="usuario">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FCHmatrizdeseguimientoEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="area" EntityType="Self.area" />
+    <EntitySet Name="estado_oportunidad" EntityType="Self.estado_oportunidad" />
+    <EntitySet Name="financista" EntityType="Self.financista" />
+    <EntitySet Name="hist_area" EntityType="Self.hist_area" />
+    <EntitySet Name="hist_estado_oportunidad" EntityType="Self.hist_estado_oportunidad" />
+    <EntitySet Name="hist_financista" EntityType="Self.hist_financista" />
+    <EntitySet Name="hist_ingresos_gastos" EntityType="Self.hist_ingresos_gastos" />
+    <EntitySet Name="hist_iniciativa" EntityType="Self.hist_iniciativa" />
+    <EntitySet Name="hist_linea" EntityType="Self.hist_linea" />
+    <EntitySet Name="hist_oportunidad" EntityType="Self.hist_oportunidad" />
+    <EntitySet Name="hist_ppto_ingresos_gastos" EntityType="Self.hist_ppto_ingresos_gastos" />
+    <EntitySet Name="hist_relacion_op_finan" EntityType="Self.hist_relacion_op_finan" />
+    <EntitySet Name="hist_tipo_financista" EntityType="Self.hist_tipo_financista" />
+    <EntitySet Name="ingresos_gastos" EntityType="Self.ingresos_gastos" />
+    <EntitySet Name="iniciativa" EntityType="Self.iniciativa" />
+    <EntitySet Name="linea" EntityType="Self.linea" />
+    <EntitySet Name="oportunidad" EntityType="Self.oportunidad" />
+    <EntitySet Name="perfil" EntityType="Self.perfil" />
+    <EntitySet Name="ppto_ingresos_gastos" EntityType="Self.ppto_ingresos_gastos" />
+    <EntitySet Name="relacion_op_finan" EntityType="Self.relacion_op_finan" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tipo_financista" EntityType="Self.tipo_financista" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <AssociationSet Name="FK_usuario_area" Association="Self.FK_usuario_area">
+      <End Role="area" EntitySet="area" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <AssociationSet Name="linea_area_fk" Association="Self.linea_area_fk">
+      <End Role="area" EntitySet="area" />
+      <End Role="linea" EntitySet="linea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_relacion_op_finan_estado_oportunidad" Association="Self.FK_relacion_op_finan_estado_oportunidad">
+      <End Role="estado_oportunidad" EntitySet="estado_oportunidad" />
+      <End Role="relacion_op_finan" EntitySet="relacion_op_finan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_relacion_op_finan_financista" Association="Self.FK_relacion_op_finan_financista">
+      <End Role="financista" EntitySet="financista" />
+      <End Role="relacion_op_finan" EntitySet="relacion_op_finan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tipo_financista" Association="Self.FK_tipo_financista">
+      <End Role="tipo_financista" EntitySet="tipo_financista" />
+      <End Role="financista" EntitySet="financista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_linea_hist_area" Association="Self.FK_hist_linea_hist_area">
+      <End Role="hist_area" EntitySet="hist_area" />
+      <End Role="hist_linea" EntitySet="hist_linea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_relacion_op_finan_hist_estado_oportunidad" Association="Self.FK_hist_relacion_op_finan_hist_estado_oportunidad">
+      <End Role="hist_estado_oportunidad" EntitySet="hist_estado_oportunidad" />
+      <End Role="hist_relacion_op_finan" EntitySet="hist_relacion_op_finan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_financista_hist_tipo_financista" Association="Self.FK_hist_financista_hist_tipo_financista">
+      <End Role="hist_tipo_financista" EntitySet="hist_tipo_financista" />
+      <End Role="hist_financista" EntitySet="hist_financista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_relacion_op_finan_hist_financista" Association="Self.FK_hist_relacion_op_finan_hist_financista">
+      <End Role="hist_financista" EntitySet="hist_financista" />
+      <End Role="hist_relacion_op_finan" EntitySet="hist_relacion_op_finan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_ingresos_gastos_hist_relacion_op_finan" Association="Self.FK_hist_ingresos_gastos_hist_relacion_op_finan">
+      <End Role="hist_relacion_op_finan" EntitySet="hist_relacion_op_finan" />
+      <End Role="hist_ingresos_gastos" EntitySet="hist_ingresos_gastos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_iniciativa_hist_linea" Association="Self.FK_hist_iniciativa_hist_linea">
+      <End Role="hist_linea" EntitySet="hist_linea" />
+      <End Role="hist_iniciativa" EntitySet="hist_iniciativa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_oportunidad_hist_iniciativa" Association="Self.FK_hist_oportunidad_hist_iniciativa">
+      <End Role="hist_iniciativa" EntitySet="hist_iniciativa" />
+      <End Role="hist_oportunidad" EntitySet="hist_oportunidad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_ppto_ingresos_gastos_hist_linea" Association="Self.FK_hist_ppto_ingresos_gastos_hist_linea">
+      <End Role="hist_linea" EntitySet="hist_linea" />
+      <End Role="hist_ppto_ingresos_gastos" EntitySet="hist_ppto_ingresos_gastos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hist_relacion_op_finan_hist_oportunidad" Association="Self.FK_hist_relacion_op_finan_hist_oportunidad">
+      <End Role="hist_oportunidad" EntitySet="hist_oportunidad" />
+      <End Role="hist_relacion_op_finan" EntitySet="hist_relacion_op_finan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ingresos_gastos_relacion_op_finan" Association="Self.FK_ingresos_gastos_relacion_op_finan">
+      <End Role="relacion_op_finan" EntitySet="relacion_op_finan" />
+      <End Role="ingresos_gastos" EntitySet="ingresos_gastos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_oprt_inic" Association="Self.FK_oprt_inic">
+      <End Role="iniciativa" EntitySet="iniciativa" />
+      <End Role="oportunidad" EntitySet="oportunidad" />
+    </AssociationSet>
+    <AssociationSet Name="iniciativa_linea_fk" Association="Self.iniciativa_linea_fk">
+      <End Role="linea" EntitySet="linea" />
+      <End Role="iniciativa" EntitySet="iniciativa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ppto_ingresos_gastos_linea" Association="Self.FK_ppto_ingresos_gastos_linea">
+      <End Role="linea" EntitySet="linea" />
+      <End Role="ppto_ingresos_gastos" EntitySet="ppto_ingresos_gastos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_relacion_op_finan_oportunidad" Association="Self.FK_relacion_op_finan_oportunidad">
+      <End Role="oportunidad" EntitySet="oportunidad" />
+      <End Role="relacion_op_finan" EntitySet="relacion_op_finan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_usuario_perfil" Association="Self.FK_usuario_perfil">
+      <End Role="perfil" EntitySet="perfil" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+    <FunctionImport Name="HistoricoMatrizSeguimiento">
+      <Parameter Name="periodo" Mode="In" Type="Int32" />
+      <Parameter Name="area" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(FCHmatrizdeseguimientoModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(FCHmatrizdeseguimientoModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="MatrizSeguimiento" EntityType="FCHmatrizdeseguimientoModel.MatrizSeguimiento" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="MatrizSeguimiento">
+    <Key>
+      <PropertyRef Name="Area" />
+      <PropertyRef Name="Linea" />
+      <PropertyRef Name="Iniciativa" />
+      <PropertyRef Name="Oportunidad" />
+      <PropertyRef Name="Financista" />
+      <PropertyRef Name="Tipo" />
+      <PropertyRef Name="Estado" />
+    </Key>
+    <Property Name="Area" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Linea" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Iniciativa" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Oportunidad" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Financista" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="FechaEntregaPropuesta" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="FechaAdjudicacionPropuesta" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="Ingreso" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="GastoHH" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="GastoOP" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="Margen" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="IngresoSig" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="GastoHHSig" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="GastoOPSig" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="MargenSig" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="IngresoSubS" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="GastoHHSubS" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="GastoOPSubS" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="MargenSubS" Type="Decimal" Precision="38" Scale="1" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

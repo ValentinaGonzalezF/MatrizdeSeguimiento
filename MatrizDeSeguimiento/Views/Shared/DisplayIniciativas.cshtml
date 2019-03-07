@@ -1,0 +1,11 @@
+﻿@model MatrizDeSeguimiento.Models.Modelsfromdatabase.iniciativa
+
+<option value="">Selecciona iniciativa de la oportunidad</option>
+@if (ViewBag.IniciativaList != null)
+{
+    foreach (var item in ViewBag.IniciativaList)
+    {
+        <option value="@item.Value"> @item.Text </option>
+    }
+
+}

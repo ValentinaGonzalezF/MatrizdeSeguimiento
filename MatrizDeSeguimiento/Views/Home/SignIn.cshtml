@@ -1,0 +1,86 @@
+﻿@model Proyecto.Models.Users.User
+@{
+    ViewBag.Title = "Ingresar Sesion";
+}
+<head>
+    <title>Ingresar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+
+    <style>
+        .wrap-login100 {
+            width: 450px;
+            height: 360px;
+            background: #F9F9F9;
+            border-radius: 3px;
+            overflow: hidden;
+            position: absolute;
+            left: 420px;
+            position: absolute;
+            top: 145px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+            <p style="position:absolute;left:174px;position:absolute;top:30px;font-weight:600;font-size:22px">
+                Ingresar
+            </p>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2", style = "position:absolute;left:65px;position:absolute;top:90px;" })
+                <div class="col-md-10" style="position:absolute;left:60px;position:absolute;top:110px;">
+                    @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control", placeholder = "Usuario", style = "padding: 0 30px 0 50px;" } })
+                    @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+                </div>
+                <img src="/images/usuario.png" style="position:absolute;left:90px;position:absolute;top:116px;" />
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Contraseña, htmlAttributes: new { @class = "control-label col-md-2", style = "position:absolute;left:65px;position:absolute;top:162px;" })
+                <div class="col-md-10" style="position:absolute;left:60px;position:absolute;top:180px;">
+                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control", @type = "Password", placeholder = "Contraseña", style = "padding: 0 30px 0 50px;" } })
+                    @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
+                </div>
+                <img src="/images/contraseña.png" style="position:absolute;left:90px;position:absolute;top:186px;" />
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Ingresar" class="btn btn-default" style="background:#F95706;color:white;position:absolute;left:108px;position:absolute;top:250px;" />
+                </div>
+            </div>
+        </div>
+    }
+    <header style="position:fixed;left:0px;top:500px;width:1366px;height:80px;z-index: 100;">
+        <div id="Cont" style="position:absolute;top:10px;">
+            <div class="row">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#" rel="home" style="width:1366px;height:70px;">
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div id="colores" class="row" style="position:absolute;top:50px;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <img width="1366" height="12" src="/images/header-colores.png" />
+            </div>
+        </div>
+    </header>
+    <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+    <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+

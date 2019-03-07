@@ -1,0 +1,197 @@
+﻿@model Proyecto.Models.FormularioViewModel
+
+@{
+    ViewBag.Title = "Detalles";
+}
+<body>
+    <h2>Detalles</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Area)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Area)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Linea)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Linea)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Iniciativa)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Iniciativa)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Oportunidad)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Oportunidad)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Financista)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Financista)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Tipo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Fecha entrega propuesta")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FechaEntregaPropuesta)
+            </dd>
+
+            <dt>
+                @Html.DisplayName("Fecha estimada adjudicación")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FechaAdjudicacionPropuesta)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Codigo)
+            </dd>
+
+            <br />
+            @{
+
+                int year = DateTime.Today.Year;
+                int nextyear = year + 1;
+                int nextnextyear = year + 2;
+
+                <p style="font-weight:bold;position:relative;left:100px;font-size:20px">@year</p>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Ingreso)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Ingreso)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GastoHH)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GastoHH)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GastoOp)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GastoOp)
+                </dd>
+                <br>
+
+                <p style="font-weight:bold;position:relative;left:100px;font-size:20px">@nextyear</p>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IngresoSig)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IngresoSig)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GastoHHSig)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GastoHHSig)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GastoOpSig)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GastoOpSig)
+                </dd>
+                <br />
+
+                <p style="font-weight:bold;position:relative;left:100px;font-size:20px">@nextnextyear</p>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IngresoSubS)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IngresoSubS)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GastoHHSubS)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GastoHHSubS)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GastoOpSubS)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GastoOpSubS)
+                </dd>
+
+
+            }
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Comentario)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comentario)
+            </dd>
+
+        </dl>
+    </div>
+    <br>
+
+    <p>
+        <div style="position:absolute;left:105px;top:931px;font-size:15px;">
+            @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-default" })
+        </div>
+        <br /> <br />  <br />
+    </p>
+
+</body>

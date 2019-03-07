@@ -1,0 +1,10 @@
+﻿@model MatrizDeSeguimiento.Models.Modelsfromdatabase.tipo_financista
+
+@if (ViewBag.TipoFinancistaList != null)
+{
+    foreach (var item in ViewBag.TipoFinancistaList)
+    {
+        <option value="@item.Value"> @item.Text </option>
+    }
+
+}

@@ -1,0 +1,403 @@
+﻿@model IEnumerable<Proyecto.Models.FormularioViewModel>
+
+@{
+    ViewBag.Title = "Matriz de Seguimiento Financiero FCH";
+}
+<style>
+    .table-fixed {
+        border-collapse: collapse;
+        font-size: 90%;
+        display: table;
+        border: hidden;
+        overflow: auto;
+    }
+        .table-fixed thead {
+            overflow-x: auto;
+            display: block;
+        }
+
+        .table-fixed td, th {
+            text-align: center;
+            padding: 8px;
+            height: 45px;
+
+        }
+        .table-fixed tr:hover {
+            background-color: #F5F5F5;
+        }
+
+    .helper-format {
+        width: 100%;
+        font-family: Wingdings;
+        font-size: .9em;
+    }
+
+    .table-fixed tbody {
+        height: 400px;
+        overflow-y: scroll;
+        width: 3420px;
+        display: block;
+    }
+
+    .table-fixed thead,
+    .table-fixed tbody,
+    .table-fixed tr,
+    .table-fixed td,
+    .table-fixed th {
+        display: block;
+        text-align: center;
+       
+    }
+
+        .table-fixed tr:after {
+            content: "";
+            display: block;
+            visibility: hidden;
+            clear: both;
+    
+        }
+
+        .table-fixed tbody td,
+        .table-fixed thead > tr > th {
+            float: left;
+      
+        }
+
+    .table > thead > tr > th,
+    .table > thead > tr > td {
+        font-size: .9em;
+        font-weight: 400;
+        border-bottom: 0;
+        letter-spacing: 1px;
+        vertical-align: top;
+        padding: 8px;
+        background: #51596a;
+        text-transform: uppercase;
+        background-color: #F5F5F5;
+    }
+ 
+</style>
+
+
+<body style="position:absolute;left:10px;">
+
+    <div style="position:fixed;left:1220px;top:12px;width: 100%;height:80px;z-index: 120;">
+        @Html.ActionLink("Cerrar Sesión", "CerrarSesion", null, new { @class = "btn btn-default" })
+    </div>
+
+    <p>
+
+        @using (Html.BeginForm("Index", "FormularioViewModels", FormMethod.Get))
+        {
+
+            <h3>
+                Área
+            </h3>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.DropDownList("areadato", null, "Todas", new { @class = "form-control" })
+                    <input type="submit" class="btn btn-basic" style="font-size:10px;position:absolute;top:0px;left:310px;width:60px;width:54px;height:30px;" value="Buscar" />
+                </div>
+            </div>
+        }
+    </p>
+    <br />
+
+    <br />    <br />
+
+    <p>
+        @Html.ActionLink("Nuevo Ingreso", "Create", null, new { @class = "btn btn-danger", style = "font-size:11px;" })
+    </p>
+
+
+    <div style="float: left;direction: rtl;position:absolute;left:10px;" width="3800px">
+        <table class="table table-fixed" >
+            <thead>
+
+                <tr>
+                    @{
+                        DateTime fechaActual = DateTime.Today;
+                        int year = fechaActual.Year;
+                        int nextyear = year + 1;
+                        int nextnextyear = nextyear + 1;
+                        <TH width="1767" height="50" style="border-top:hidden;border-left:hidden;background-color:white;">
+
+                        </TH>
+                        <TH width="400" style="border: 1px solid #606060;background-color:#E6E6FA;">
+                            @year (MM)
+                        </TH>
+                        <TH width="400" style="border: 1px solid #606060;background-color: #E6E6FA; border-left:hidden;">
+                            @nextyear (MM)
+                        </TH>
+                        <TH width="400" style="border: 1px solid #606060;background-color:	#E6E6FA;border-left:hidden;">
+                            @nextnextyear (MM)
+                        </TH>
+                    }
+                </tr>
+
+
+                <tr >
+                    
+                    <th WIDTH="227" height="50" style="border-left: 1px solid #ddd;">
+                        @Html.DisplayNameFor(model => model.Area)
+                    </th>
+
+                    <th WIDTH="210" height="50">
+                        @Html.DisplayNameFor(model => model.Linea)
+                    </th>
+
+                    <th WIDTH="210" height="50">
+                        @Html.DisplayNameFor(model => model.Iniciativa)
+                    </th>
+                    <th WIDTH="510" height="50">
+                        @Html.DisplayNameFor(model => model.Oportunidad)
+                    </th>
+
+                    <th WIDTH="210" height="50">
+                        @Html.DisplayNameFor(model => model.Financista)
+                    </th>
+
+                    <th WIDTH="100" height="50">
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+
+                    <th WIDTH="100" height="50">
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+
+                    <th WIDTH="100" height="50">
+                        @Html.DisplayNameFor(model => model.FechaEntregaPropuesta)
+                    </th>
+
+                    <th WIDTH="100" height="50">
+                        @Html.DisplayNameFor(model => model.FechaAdjudicacionPropuesta)
+                    </th>
+
+                    <th WIDTH="100" id="ing" height="50" style="border: 1px solid #ddd;border-left-color:#606060;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.Ingreso)
+                    </th>
+
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoHH)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoOp)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-right-color:#606060;border-bottom-color:#606060;">
+                        @Html.DisplayNameFor(model => model.Margen)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.IngresoSig)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoHHSig)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoOpSig)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-right-color:#606060;border-bottom-color:#606060;">
+                        @Html.DisplayNameFor(model => model.MargenSig)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.IngresoSubS)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoHHSubS)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-bottom-color:#606060;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoOpSubS)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-right-color:#606060;border-bottom-color:#606060;">
+                        @Html.DisplayNameFor(model => model.MargenSubS)
+                    </th>
+
+                    <th WIDTH="99" height="50" style="border: 1px solid #ddd;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.IngresoTotal)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.GastoTotal)
+                    </th>
+
+                    <th WIDTH="100" height="50" style="border: 1px solid #ddd;border-right:hidden;">
+                        @Html.DisplayNameFor(model => model.Codigo)
+                    </th>
+
+                    <th WIDTH="150" height="50" style="border: 1px solid #ddd;">
+                        Opciones
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    decimal IngresoTotalAñoActual = 0;
+                    decimal GastoTotalAñoActual = 0;
+                    decimal MargenTotalAñoActual = 0;
+                    decimal IngresoTotalAñoSiguiente = 0;
+                    decimal GastoTotalAñoSiguiente = 0;
+                    decimal MargenTotalAñSiguiente = 0;
+                    decimal IngresoTotalAñoSubSiguiente = 0;
+                    decimal GastoTotalAñoSubSiguiente = 0;
+                    decimal MargenTotalAñoSubSiguiente = 0;
+
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td  WIDTH="210" style="border-left: 1px solid #ddd;">
+                                @Html.DisplayFor(modelItem => item.Area)
+                            </td>
+
+                            <td  WIDTH="210">
+                                @Html.DisplayFor(modelItem => item.Linea)
+                            </td>
+
+                            <td  WIDTH="210">
+                                @Html.DisplayFor(modelItem => item.Iniciativa)
+                            </td>
+
+                            <td  WIDTH="510">
+                                @Html.DisplayFor(modelItem => item.Oportunidad)
+                            </td>
+
+                            <td  WIDTH="210">
+                                @Html.DisplayFor(modelItem => item.Financista)
+                            </td>
+
+                            <td  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.Tipo)
+                            </td>
+
+                            <td  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.Estado)
+                            </td>
+
+                            <td  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.FechaEntregaPropuesta)
+                            </td>
+
+                            <td  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.FechaAdjudicacionPropuesta)
+                            </td>
+
+                            <td style="border-left: 1px solid #606060"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.Ingreso)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoHH)
+                            </td>
+
+                            <td style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoOp)
+                            </td>
+
+                            <td style="border-right: 1px solid #ddd;border-right-color:#606060"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.Margen)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.IngresoSig)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoHHSig)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoOpSig)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;border-right: 1px solid #606060"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.MargenSig)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;"  WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.IngresoSubS)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;" WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoHHSubS)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;" WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoOpSubS)
+                            </td>
+
+                            <td style="border-left: 1px solid #ddd;border-right: 1px solid #606060" WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.MargenSubS)
+                            </td>
+
+                            <td style="border: 1px solid #ddd;border-left-color: #606060;border-left:hidden;border-top:hidden;" WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.IngresoTotal)
+                            </td>
+
+                            <td style="border: 1px solid #ddd;border-left:hidden;border-top:hidden;" WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.GastoTotal)
+                            </td>
+
+                            <td style="border: 1px solid #ddd;border-left:hidden;border-top:hidden;" WIDTH="100">
+                                @Html.DisplayFor(modelItem => item.Codigo)
+                            </td>
+
+
+                            <td style="border: 1px solid #ddd;border-top:hidden;border-left:hidden;" WIDTH="149">
+
+                                <!-Cambiar formato de link->
+                                <!-Primero Metodo que va a representar SEGUNDO metodo de accion a
+                                invocar TERCERO objeto anonimo que genera los datos de la ruta->
+                                @Html.ActionLink("Editar", "Edit", new { nombre_financista = item.Financista, nombre_oportunidad = item.Oportunidad, nombre_area = item.Area, nombre_linea = item.Linea, nombre_iniciativa = item.Iniciativa }, new { @class = "btn btn-primary", style = "font-size: 11px;width:60px" })
+                                @Html.ActionLink("Detalles", "Details", new { nombre_financista = item.Financista, nombre_oportunidad = item.Oportunidad, nombre_area = item.Area, nombre_linea = item.Linea, nombre_iniciativa = item.Iniciativa }, new { @class = "btn btn-warning", style = "font-size: 11px;width:60px" })
+                                <!--@Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })-->
+                            </td>
+
+
+                        </tr>
+                        IngresoTotalAñoActual += item.Ingreso;
+                        GastoTotalAñoActual += item.GastoOp + item.GastoHH;
+                        MargenTotalAñoActual += item.Margen;
+                        IngresoTotalAñoSiguiente += item.IngresoSig;
+                        GastoTotalAñoSiguiente += item.GastoOpSig + item.GastoHHSig;
+                        MargenTotalAñSiguiente += item.MargenSig;
+                        IngresoTotalAñoSubSiguiente += item.IngresoSubS;
+                        GastoTotalAñoSubSiguiente += item.GastoHHSubS + item.GastoOpSubS;
+                        MargenTotalAñoSubSiguiente += item.MargenSubS;
+                    }
+                    <tr style="font-weight:700;background-color:#E6E6FA;">
+                        <td  width="1750px"  style="border-right-color:#ddd;text-align:right;background-color:#F5F5F5;"> TOTAL</td>
+                        <td  width="100px" style="border: 1px solid #606060;border-top: 1px solid #606060;" > @IngresoTotalAñoActual </td>
+                        <td  width="200px"  style="border: 1px solid #606060;"> @GastoTotalAñoActual</td>
+                        <td width="100px" style="border: 1px solid #606060;">@MargenTotalAñoActual </td>
+                        <td  width="100px" style="border: 1px solid #606060;">@IngresoTotalAñoSiguiente </td>
+                        <td width="200px" style="border: 1px solid #606060;">@GastoTotalAñoSiguiente </td>
+                        <td width="100px" style="border: 1px solid #606060;border-top-color:#606060">@MargenTotalAñSiguiente </td>
+                        <td width="100px" style="border: 1px solid #606060;">@IngresoTotalAñoSubSiguiente</td>
+                        <td width="200px"  style="border: 1px solid #606060;">@GastoTotalAñoSubSiguiente </td>
+                        <td width="100px" style="border: 1px solid #606060;">@MargenTotalAñoSubSiguiente </td>
+                        <td width="450" style="background-color:white;border-bottom:hidden;border-right:hidden;border-top:hidden;" height="35"></td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+</body>

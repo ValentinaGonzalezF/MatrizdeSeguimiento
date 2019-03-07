@@ -1,0 +1,11 @@
+﻿@model MatrizDeSeguimiento.Models.Modelsfromdatabase.linea
+
+<option value="">Selecciona linea de la oportunidad</option>
+@if (ViewBag.LineaList != null)
+{
+    foreach (var item in ViewBag.LineaList)
+    {
+        <option value="@item.Value"> @item.Text </option>
+    }
+
+}

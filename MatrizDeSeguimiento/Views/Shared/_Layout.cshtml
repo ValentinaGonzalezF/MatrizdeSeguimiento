@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #Cont {
+            margin-top: 50px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            line-height: 1.5em;
+            padding-top: 80px; /* Relleno superior igual a la altura de la cabecera*/
+        }
+    </style>
+</head>
+<body>
+    <header style="position:fixed;left:0px;top:-50px;width: 100%;height:80px;z-index: 100;">
+        <div id="Cont">
+            <div class="row">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#" rel="home" style="width: 1366px;height:90px">
+                                <img style="max-width:100%; margin-top: -9px; height: 49px; margin-left: 9px;" src="/images/fundacion-logo.png" />
+                            </a>
+                        </div>
+                        <h2 style="position:absolute;top:10px;position:absolute;left:440px;width:100%">Matriz de Seguimiento Financiero</h2>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div id="colores" class="row" style="position:absolute;top:130px;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <img width="1366" height="12" src="/images/header-colores.png" />
+            </div>
+        </div>
+    </header>
+
+    <br />
+    <br />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer style="position:absolute;left:30px"></footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
